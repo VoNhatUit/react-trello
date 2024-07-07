@@ -1,10 +1,50 @@
+import React from 'react';
+import { Button } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'; 
 
 import CardList from './components/card-list';
 
-import { todosHashMock } from './mocks/app-mocks'
+import { useAppContext } from './contexts/app-context';
 
 function App() {
-  console.log('todosHashMock: ', todosHashMock)
+  const { todos, onDragList, onDragCardSameList, onDragCardDiffereceList } = useAppContext();
+  console.log('todos: ', todos)
+
+  const onDragEnd = (e) => {
+    console.log('onDragEnd: ', e)
+    const { type, source, destination, draggableId } = e;
+    if(!destination) return;
+
+    // drag & drop list
+    if(type === 'LIST') {
+      onDragList({
+        source,
+        destination,
+      });
+      return;
+    } 
+
+    // drag & drop card same list
+    if(source.droppableId === destination.droppableId) {
+      onDragCardSameList({
+        source,
+        destination,
+        draggableId
+      })
+      return;
+    }
+
+    // drag & drop card difference list
+    if(source.droppableId !== destination.droppableId) {
+      onDragCardDiffereceList({
+        source,
+        destination,
+        draggableId
+      })
+    }
+  }
+  
   return (
    <>
       <header className='flex'>
@@ -19,15 +59,42 @@ function App() {
       </header>
       <main className='pt-[40px] h-[calc(100vh-15px)] w-full'>
         <div className="flex flex-row items-start h-full mt-2 px-2">
-          {todosHashMock.columns.map(column => {
-            const listItem = todosHashMock.lists[column];
-            console.log(listItem)
-
-            return (
-              <CardList key={column} listItem={listItem} />
-            )
-          })}
-         
+          <DragDropContext
+            onDragEnd={onDragEnd}
+          >
+            <Droppable 
+              droppableId="all-lists" 
+              direction="horizontal"
+              type="LIST"
+             >
+              {(provided, snapshot) => (
+                <div
+                  ref={provided.innerRef}
+                  // style={{ backgroundColor: snapshot.isDraggingOver ? 'blue' : 'grey' }}
+                  className='listContainer'
+                  {...provided.droppableProps}
+                >
+                  {todos.columns.map((column, index) => {
+                    const listItem = todos.lists[column];
+                    const cards = listItem.cards.map(card => todos.cards[card]);
+                    return (
+                      <CardList 
+                        index={index}
+                        key={column} 
+                        listItem={listItem} 
+                        cards={cards} 
+                      />
+                    )
+                  })}
+                
+                  {provided.placeholder}
+                  <Button type="text">
+                    <PlusOutlined /> Add another list
+                  </Button>
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
         </div>
       </main> 
     </>

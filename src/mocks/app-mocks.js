@@ -66,7 +66,7 @@ export const todosHashMock = {
       description: 'javascript',
       author: 'tony',
       avatar: 'xxx',
-      meta: ''
+      meta: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
     },
     "card1-2":  {
       id: 'card1-2',
@@ -74,7 +74,7 @@ export const todosHashMock = {
       description: 'angular',
       author: 'tony',
       avatar: 'xxx',
-      meta: 'xx'
+      meta: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
     },
     "card2-1":  {
       id: 'card12-1',
@@ -82,7 +82,7 @@ export const todosHashMock = {
       description: 'vue',
       author: 'tony',
       avatar: 'xxx',
-      meta: 'xx'
+      meta: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
     },
   }
 }

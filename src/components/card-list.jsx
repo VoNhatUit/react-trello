@@ -28,7 +28,7 @@ function CardList({ listItem, cards, index }) {
               >
                 <Card 
                   title={<CartTitle title={listItem.title} />} 
-                  extra={<CardExtra />} 
+                  extra={<CardExtra listId={listItem.id}  />}
                 >
                   {cards.map((card, index) => {
                     return (

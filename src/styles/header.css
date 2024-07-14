@@ -12,7 +12,7 @@
 }
 
 .header__logo {
-  background: url("./assets/images/logo.png") no-repeat 100% 0 / cover;
+  background: url("../assets/images/trello_bg.png") no-repeat 100% 0 / cover;
   height: 30px;
   width: 80px;
   opacity: 0.5;

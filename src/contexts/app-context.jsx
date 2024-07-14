@@ -65,8 +65,55 @@ export const AppProvider = ({ children }) => {
       },
     }
   });
+  const handleSubmit = (data) =>{
+    const { id, title, cards} = data;
+    const newLists = {
+      id,
+      title,
+      cards,
+    }
+    setTodos(prevState => [...prevState, 
+                            
+    ])
+    return {
+      
+    }
+  }
+  function deleteList(listId) {
+    console.log('delete ListCard');
+    const newLists = {...todos.lists };
+    delete newLists[listId];
+    const newColumns = todos.columns.filter((column) => column!== listId);
+    setTodos(prevState => {
+      
+    
+      // const clonedColumnsIndex = clonedColumns.findIndex(list => list.id === listId);
+      // if(clonedColumnsIndex === -1) return prevState;
 
+      // clonedColumns.splice(clonedColumnsIndex, 1); // remove an item in array
+      return {
+        ...prevState, 
+        lists: {
+          ...prevState.lists,
+          newLists
+
+        },      
+        columns: {
+          ...prevState.columns,
+          newColumns 
+      }
+
+    }
+  })
+  }
   console.log('todos: ', todos)
+
+  function deleteCard(listId, cardId){
+    console.log('delete Card');
+    setTodos(prevState => {
+      const clonedLists = [...prevState.lists];
+    })
+  }
   // TODO: nothing if destination is null
 
   // TODO: drag & drop list
@@ -139,7 +186,9 @@ export const AppProvider = ({ children }) => {
         // actions
         onDragList,
         onDragCardSameList,
-        onDragCardDiffereceList
+        onDragCardDiffereceList,
+        deleteList,
+        deleteCard,
       }}
     >
       {children}

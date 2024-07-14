@@ -1,49 +1,3 @@
-export const todosArrayMocks = [
-  {
-    id: 'list1',
-    title: 'List 1',
-    cards: [
-      {
-        id: 'card1',
-        title: 'card 1',
-        description: 'javascript',
-        author: 'tony',
-        avatar: 'xxx',
-        meta: 'xx'
-      },
-      {
-        id: 'card1',
-        title: 'card 1',
-        description: 'javascript',
-        author: 'tony',
-        avatar: 'xxx',
-        meta: 'xx'
-      }
-    ]
-  },
-  {
-    id: 'list2',
-    title: 'List 2',
-    cards: [
-      {
-        id: 'card1',
-        title: 'card 1',
-        description: 'javascript',
-        author: 'tony',
-        avatar: 'xxx',
-        meta: 'xx'
-      },
-      {
-        id: 'card1',
-        title: 'card 1',
-        description: 'javascript',
-        author: 'tony',
-        avatar: 'xxx',
-        meta: 'xx'
-      }
-    ]
-  }
-]
 
 export const todosHashMock = {
   columns: ['list1', 'list2'],  // render list item UI
@@ -65,7 +19,7 @@ export const todosHashMock = {
       title: 'card1-1',
       description: 'javascript',
       author: 'tony',
-      avatar: 'xxx',
+      avatar: 'xx',
       meta: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
     },
     "card1-2":  {

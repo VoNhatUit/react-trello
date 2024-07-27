@@ -1,13 +1,11 @@
 import { Navigate } from 'react-router-dom';
 import React from 'react';
-import { useAppContext } from '../contexts/app-context';
 import PropTypes from 'prop-types';
 
 function AuthRoute({ children }) {
   const access_token = window.localStorage.getItem('access_token')
-  const { users } = React.useContext(useAppContext);
 
-  if(!users) {
+  if(!access_token) {
     return <Navigate to="/login" />
   }
 

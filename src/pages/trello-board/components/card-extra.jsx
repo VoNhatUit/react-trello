@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Tooltip} from 'antd';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons'
 import AddCard from './add-card';
-import { useAppContext } from '../contexts/app-context';
+import { useAppContext } from  '../../../contexts/app-context'
 
 function CardExtra(listId) {
   const [visible, setVisible] = React.useState(false);

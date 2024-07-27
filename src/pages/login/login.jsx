@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import { useAppContext } from '../../contexts/app-context';
@@ -99,6 +100,14 @@ function Login() {
            
         </section>
     )
+=======
+import React from 'react'
+
+function Login() {
+  return (
+    <div>Login</div>
+  )
+>>>>>>> d65d76d238eefc2178125db42150c29976414b0a
 }
 
 export default Login

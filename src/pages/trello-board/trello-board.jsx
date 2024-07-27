@@ -3,18 +3,10 @@ import { PlusOutlined } from '@ant-design/icons';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'; 
 import CardList from '../../components/card-list';
 import { useAppContext } from '../../contexts/app-context';
-import React from 'react';
 
 function Dashboard() {
-    const { todos, onDragList, onDragCardSameList, onDragCardDiffereceList, handleAddList } = useAppContext();
-    const [visible, setVisible] = React.useState(false);
-    const showModal = () => {
-      setVisible(true);
-    };
-  
-    const handleCancel = () => {
-      setVisible(false);
-    };
+    const { todos, onDragList, onDragCardSameList, onDragCardDiffereceList } = useAppContext();
+
   const onDragEnd = (e) => {
     console.log('onDragEnd: ', e)
     const { type, source, destination, draggableId } = e;
@@ -50,9 +42,17 @@ function Dashboard() {
   }
   return (
     <>
-      
+      <header className='flex'>
+        <div className="header__container">
+          <div className="header__logo" />
+          <div className="header__right">
+            <div className="header__avatar">
+              <img src="src/assets/images/avatar.png" alt="Avatar" />
+            </div>
+          </div>
+        </div>
+      </header>
       <main className='pt-[40px] h-[calc(100vh-15px)] w-full'>
-
         <div className="flex flex-row items-start h-full mt-2 px-2">
           <DragDropContext
             onDragEnd={onDragEnd}
@@ -70,7 +70,7 @@ function Dashboard() {
                   className='listContainer'
                   {...provided.droppableProps}
                 >
-                  {todos.columns.map((column, index) => {
+                  {todos.columns?.map((column, index) => {
                     const listItem = todos.lists[column];
                     const cards = listItem.cards.map(card => todos.cards[card]);
                     return (
@@ -84,9 +84,7 @@ function Dashboard() {
                   })}
                 
                   {provided.placeholder}
-                  <Button type="text"
-                          onClick={handleAddList}
-                  >
+                  <Button type="text">
                     <PlusOutlined /> Add another list
                   </Button>
                 </div>

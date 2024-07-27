@@ -6,7 +6,7 @@ import { useAppContext } from  '../../../contexts/app-context'
 
 function CardExtra(listId) {
   const [visible, setVisible] = React.useState(false);
-  const { deleteList} = useAppContext();
+  const { handleAddList, handleDeleteList} = useAppContext();
   const showModal = () => {
     setVisible(true);
   };
@@ -18,11 +18,11 @@ function CardExtra(listId) {
   return (
     <div>
       <Tooltip title="Add a card" className='mr-2'>
-        <Button type='link' shape="circle" icon={<PlusOutlined />} onClick={showModal}/>
+        <Button type='link' shape="circle" icon={<PlusOutlined />} onClick=''/>
       </Tooltip>
 
       <Tooltip title="Delete this list">
-        <Button shape="circle" icon={<DeleteOutlined />} onClick={()=>{deleteList(listId)}}/>
+        <Button shape="circle" icon={<DeleteOutlined />} onClick={()=>{handleDeleteList(listId)}}/>
       </Tooltip>
       <AddCard visible={visible} onCancel={handleCancel}/>
     </div>

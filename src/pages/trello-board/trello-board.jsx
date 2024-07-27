@@ -1,16 +1,11 @@
-import React from 'react';
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'; 
-
-import CardList from './components/card-list';
-
+import CardList from '../../components/card-list';
 import { useAppContext } from '../../contexts/app-context';
 
-
-function TrelloBoard() {
-  const { todos, onDragList, onDragCardSameList, onDragCardDiffereceList } = useAppContext();
-  console.log('todos: ', todos)
+function Dashboard() {
+    const { todos, onDragList, onDragCardSameList, onDragCardDiffereceList } = useAppContext();
 
   const onDragEnd = (e) => {
     console.log('onDragEnd: ', e)
@@ -45,15 +40,14 @@ function TrelloBoard() {
       })
     }
   }
-  
   return (
-   <>
+    <>
       <header className='flex'>
         <div className="header__container">
           <div className="header__logo" />
           <div className="header__right">
             <div className="header__avatar">
-              <img src="/assets/images/avatar.png" alt="Avatar" />
+              <img src="src/assets/images/avatar.png" alt="Avatar" />
             </div>
           </div>
         </div>
@@ -69,13 +63,14 @@ function TrelloBoard() {
               type="LIST"
              >
               {(provided, snapshot) => (
+
                 <div
                   ref={provided.innerRef}
                   // style={{ backgroundColor: snapshot.isDraggingOver ? 'blue' : 'grey' }}
                   className='listContainer'
                   {...provided.droppableProps}
                 >
-                  {todos.columns.map((column, index) => {
+                  {todos.columns?.map((column, index) => {
                     const listItem = todos.lists[column];
                     const cards = listItem.cards.map(card => todos.cards[card]);
                     return (
@@ -102,4 +97,4 @@ function TrelloBoard() {
   )
 }
 
-export default TrelloBoard
+export default Dashboard

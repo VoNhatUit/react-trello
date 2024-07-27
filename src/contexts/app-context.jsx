@@ -1,113 +1,61 @@
 import React from 'react';
-
+import { todosHashMock } from '../mocks/app-mocks';
+import { usersMocks } from '../mocks/user-mock';
+import addNewList from '../components/add-list';
 const AppContext = React.createContext();
 
 export const AppProvider = ({ children }) => {
-  const [todos, setTodos] = React.useState({
-    columns: ['list1', 'list2', 'list3'],  // render list item UI
-    lists: {
-      list1: {
-        id: 'list1',
-        title: 'List 1',
-        cards: ['card1-1', 'card1-2', 'card1-3', 'card1-4']
-      },
-      list2: {
-        id: 'list2',
-        title: 'List 2',
-        cards: ['card2-1']
-      },
-      list3: {
-        id: 'list3',
-        title: 'List 3',
-        cards: []
-      }
-    },
-    cards: {
-      "card1-1":  {
-        id: 'card1-1',
-        title: 'card1-1',
-        description: 'javascript',
-        author: 'tony',
-        avatar: 'xxx',
-        meta: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
-      },
-      "card1-2":  {
-        id: 'card1-2',
-        title: 'card1-2',
-        description: 'angular',
-        author: 'tony',
-        avatar: 'xxx',
-        meta: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
-      },
-      "card1-3":  {
-        id: 'card1-3',
-        title: 'card1-3',
-        description: 'javascript',
-        author: 'tony',
-        avatar: 'xxx',
-        meta: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
-      },
-      "card1-4":  {
-        id: 'card1-4',
-        title: 'card1-4',
-        description: 'angular',
-        author: 'tony',
-        avatar: 'xxx',
-        meta: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
-      },
-      "card2-1":  {
-        id: 'card12-1',
-        title: 'card2-1',
-        description: 'vue',
-        author: 'tony',
-        avatar: 'xxx',
-        meta: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
-      },
+  const [users, setUsers] = React.useState(usersMocks);
+  const [todos, setTodos] = React.useState(todosHashMock);
+
+  const loginUser = (username, password) => {
+    const findUser = users.find(user => user.username === username && user.password === password);
+    if (findUser) {
+      setUsers(findUser);
+      return true;
     }
-  });
-  const handleSubmit = (data) =>{
-    const { id, title, cards} = data;
-    const newLists = {
-      id,
-      title,
-      cards,
-    }
-    setTodos(prevState => [...prevState, 
-                            
-    ])
-    return {
+    return false;
+}
+  const registerUser = (username, email, password,) => {
+    const newUser = {
+      id: usersMocks.length + 1,
+      username,
+      password,
+      email,
       
-    }
-  }
-  function deleteList(listId) {
-    console.log('delete ListCard');
-    const newLists = {...todos.lists };
-    delete newLists[listId];
-    const newColumns = todos.columns.filter((column) => column!== listId);
-    setTodos(prevState => {
-      
+    };
+    users.push(newUser);
+    usersMocks.push(newUser);
+    return true;
     
-      // const clonedColumnsIndex = clonedColumns.findIndex(list => list.id === listId);
-      // if(clonedColumnsIndex === -1) return prevState;
-
-      // clonedColumns.splice(clonedColumnsIndex, 1); // remove an item in array
-      return {
-        ...prevState, 
-        lists: {
-          ...prevState.lists,
-          newLists
-
-        },      
-        columns: {
-          ...prevState.columns,
-          newColumns 
-      }
-
-    }
-  })
   }
-  console.log('todos: ', todos)
 
+  const handleAddList = () => {
+    setTodos(prevState => addNewList(prevState));
+    console.log(todos);
+  };
+    
+  function deleteList(listId) {
+  const clonedToDos = [...todos];
+  // Remove the list from the columns array
+  clonedToDos.columns = todos.columns.filter(id => id !== listId);
+
+  // Remove the list from the lists object
+  delete clonedToDos.lists[listId];
+
+  // Remove all cards that were in this list
+  const cardsToDelete = todos.lists[listId].cards;
+  cardsToDelete.forEach(cardId => {
+    delete clonedToDos.cards[cardId];
+  });
+
+
+    return clonedToDos;
+  }
+  const handleDeleteList = (listId) => {
+    setTodos(prevState => deleteList(prevState, listId));
+  };
+  
   function deleteCard(listId, cardId){
     console.log('delete Card');
     setTodos(prevState => {
@@ -182,18 +130,22 @@ export const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
-        todos,
+        todos, users,
         // actions
         onDragList,
         onDragCardSameList,
         onDragCardDiffereceList,
-        deleteList,
+        handleDeleteList,
         deleteCard,
+        handleAddList,
+        loginUser,
+        registerUser,
       }}
     >
       {children}
     </AppContext.Provider>
   )
+
 };
 
 export const useAppContext = () => React.useContext(AppContext);

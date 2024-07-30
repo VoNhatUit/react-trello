@@ -5,7 +5,7 @@ function GuestRoute({ children }) {
   const access_token = window.localStorage.getItem('access_token')
 
   if(access_token) {
-    return <Navigate to="/register" />
+    return <Navigate to="/" />
   }
 
   return (

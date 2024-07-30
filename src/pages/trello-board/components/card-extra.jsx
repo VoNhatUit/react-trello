@@ -4,7 +4,7 @@ import { PlusOutlined, DeleteOutlined } from '@ant-design/icons'
 import AddCard from './add-card';
 import { useAppContext } from  '../../../contexts/app-context'
 
-function CardExtra(listId) {
+function CardExtra({ listId }) {
   const [visible, setVisible] = React.useState(false);
   const { handleAddList, handleDeleteList} = useAppContext();
   const showModal = () => {
@@ -15,6 +15,7 @@ function CardExtra(listId) {
     setVisible(false);
   };
 
+  
   return (
     <div>
       <Tooltip title="Add a card" className='mr-2'>

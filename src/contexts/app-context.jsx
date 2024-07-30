@@ -1,21 +1,21 @@
 import React from 'react';
 import { todosHashMock } from '../mocks/app-mocks';
 import { usersMocks } from '../mocks/user-mock';
-import addNewList from '../components/add-list';
 const AppContext = React.createContext();
 
 export const AppProvider = ({ children }) => {
   const [users, setUsers] = React.useState(usersMocks);
   const [todos, setTodos] = React.useState(todosHashMock);
 
-  const loginUser = (username, password) => {
-    const findUser = users.find(user => user.username === username && user.password === password);
-    if (findUser) {
-      setUsers(findUser);
-      return true;
-    }
-    return false;
-}
+  const isLogin = (username, password) => {
+      const user = users.find(user => user.username === username && user.password === password);
+      if (user) {
+        setUsers(user);
+        return true;
+      }
+      return false;
+  }
+
   const registerUser = (username, email, password,) => {
     const newUser = {
       id: usersMocks.length + 1,
@@ -31,31 +31,27 @@ export const AppProvider = ({ children }) => {
   }
 
   const handleAddList = () => {
-    setTodos(prevState => addNewList(prevState));
     console.log(todos);
   };
-    
-  function deleteList(listId) {
-  const clonedToDos = [...todos];
-  // Remove the list from the columns array
-  clonedToDos.columns = todos.columns.filter(id => id !== listId);
-
-  // Remove the list from the lists object
-  delete clonedToDos.lists[listId];
-
-  // Remove all cards that were in this list
-  const cardsToDelete = todos.lists[listId].cards;
-  cardsToDelete.forEach(cardId => {
-    delete clonedToDos.cards[cardId];
-  });
-
-
-    return clonedToDos;
-  }
-  const handleDeleteList = (listId) => {
-    setTodos(prevState => deleteList(prevState, listId));
-  };
   
+  const handleDeleteList = (listId) => {
+    // setTodos(prevState => ({
+    //   ...prevState
+    // }))
+    setTodos(prevState => {
+      const newColumns = [...prevState.columns];
+      const newLists = {...prevState.lists};
+      const listIndex = newColumns.findIndex(list => list === listId);
+      newColumns.splice(listIndex, 1);
+      delete newLists[listId];
+      return {
+        ...prevState,
+        columns: newColumns,
+        lists: newLists
+      }
+    })
+  };
+
   function deleteCard(listId, cardId){
     console.log('delete Card');
     setTodos(prevState => {
@@ -138,7 +134,7 @@ export const AppProvider = ({ children }) => {
         handleDeleteList,
         deleteCard,
         handleAddList,
-        loginUser,
+        isLogin,
         registerUser,
       }}
     >

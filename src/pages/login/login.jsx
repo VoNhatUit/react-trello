@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import { useAppContext } from '../../contexts/app-context';
@@ -8,7 +7,7 @@ function Login() {
     const navigate = useNavigate();
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const { loginUser } = useAppContext();
+    const { isLogin } = useAppContext();
 
     function onLogin() {
         // call api login -> return token -> save localstorage & redirect to home
@@ -19,8 +18,11 @@ function Login() {
             navigate('/')
         }
     }
+
     const handleSubmit = ()=> {
-        if (loginUser(username, password)) {
+        const checkUser = isLogin(username, password);
+        if (checkUser) {
+          window.localStorage.setItem('access_token', Date.now());
           navigate('/');
         } else {
           alert('Invalid account, please try again');
@@ -100,14 +102,6 @@ function Login() {
            
         </section>
     )
-=======
-import React from 'react'
-
-function Login() {
-  return (
-    <div>Login</div>
-  )
->>>>>>> d65d76d238eefc2178125db42150c29976414b0a
 }
 
 export default Login

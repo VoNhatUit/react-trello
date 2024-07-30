@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'; 
-import CardList from '../../components/card-list';
+import CardList from './components/card-list'
 import { useAppContext } from '../../contexts/app-context';
 
 function Dashboard() {

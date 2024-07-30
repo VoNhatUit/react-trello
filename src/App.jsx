@@ -1,5 +1,4 @@
 
-<<<<<<< HEAD
 import Dashboard from './pages/dashboard';
 import Login from './pages/login';
 import Register from './pages/register';
@@ -16,9 +15,6 @@ import React from 'react';
 import { Link, Routes, Route, NavLink, useNavigate } from "react-router-dom";
 import { UserOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Space, Menu } from 'antd';
-=======
-import TrelloBoard from './pages/trello-board/trello-board';
->>>>>>> d65d76d238eefc2178125db42150c29976414b0a
 
 function App() {
   const [isLogIn, setIsLogIn] = React.useState(false);
@@ -37,13 +33,11 @@ function App() {
       key: '1',
       label: isLogIn ? 'Logout' : <NavLink to="/register">Register</NavLink>,
     
-    }
+    }]
 
-  ];
 
   
   return (
-<<<<<<< HEAD
     <>
 
       <header className='flex'>
@@ -78,9 +72,6 @@ function App() {
         </Routes>
       </main>
     </>
-=======
-   <TrelloBoard/>
->>>>>>> d65d76d238eefc2178125db42150c29976414b0a
   )
 }
 

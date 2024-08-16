@@ -52,7 +52,7 @@ export const todosHashMock = {
       meta: 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
     },
     "card2-1":  {
-      id: 'card12-1',
+      id: 'card2-1',
       title: 'card2-1',
       description: 'vue',
       author: 'tony',

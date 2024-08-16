@@ -1,6 +1,7 @@
 import React from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { Card } from 'antd';
+import PropTypes from 'prop-types';
 
 // components
 import CartTitle from './card-title';
@@ -53,3 +54,9 @@ function CardList({ listItem, cards, index }) {
 }
 
 export default CardList
+CardList.propTypes = {
+  cards: PropTypes.any,
+ listItem: PropTypes.any,
+ index: PropTypes.number,
+  
+}

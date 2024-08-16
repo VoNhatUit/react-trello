@@ -3,9 +3,10 @@ import { PlusOutlined } from '@ant-design/icons';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'; 
 import CardList from './components/card-list'
 import { useAppContext } from '../../contexts/app-context';
+import AddListButton from './components/add-list-button';
 
 function Dashboard() {
-    const { todos, onDragList, onDragCardSameList, onDragCardDiffereceList } = useAppContext();
+    const { todos, handleAddList, onDragList, onDragCardSameList, onDragCardDiffereceList } = useAppContext();
 
   const onDragEnd = (e) => {
     console.log('onDragEnd: ', e)
@@ -84,9 +85,7 @@ function Dashboard() {
                   })}
                 
                   {provided.placeholder}
-                  <Button type="text">
-                    <PlusOutlined /> Add another list
-                  </Button>
+                  <AddListButton/>
                 </div>
               )}
             </Droppable>

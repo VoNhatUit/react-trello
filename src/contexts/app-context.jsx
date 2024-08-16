@@ -31,8 +31,25 @@ export const AppProvider = ({ children }) => {
   }
 
   const handleAddList = () => {
-    console.log(todos);
-  };
+    setTodos(prevState => {
+      const newListId = `list${Object.keys(prevState.lists).length + 1}`;
+      const newList = {
+        id: newListId,
+        title: `List ${Object.keys(prevState.lists).length + 1}`,
+        cards: []
+      };
+      return {
+        ...prevState,
+        columns: [...prevState.columns, newListId],
+        lists: {
+          ...prevState.lists,
+          [newListId]: newList
+        }
+      };
+    });
+    
+  }
+  
   
   const handleDeleteList = (listId) => {
     // setTodos(prevState => ({
@@ -52,10 +69,24 @@ export const AppProvider = ({ children }) => {
     })
   };
 
-  function deleteCard(listId, cardId){
+  const handleDeleteCard = (cardId) => {
     console.log('delete Card');
     setTodos(prevState => {
-      const clonedLists = [...prevState.lists];
+      const newLists = {...prevState.lists};
+      const newCards = {...prevState.cards};
+      Object.keys(newLists).forEach(listId => {
+        const cardIndex = newLists[listId].cards.findIndex(card => card === cardId);
+        if (cardIndex !== -1) {
+          newLists[listId].cards.splice(cardIndex, 1);
+        }
+      });
+      delete newCards[cardId]
+
+      return {
+        ...prevState,
+        lists: newLists,
+        cards: newCards
+      }
     })
   }
   // TODO: nothing if destination is null
@@ -63,7 +94,8 @@ export const AppProvider = ({ children }) => {
   // TODO: drag & drop list
   function onDragList({ source, destination }) {
     setTodos(prevState => {
-      const clonedColumns = [...prevState.columns];
+      const clonedColumns = {...prevState.columns}
+      const newLists = {...prevState.lists};
       const listDragged = clonedColumns.splice(source.index, 1)[0];
       clonedColumns.splice(destination.index, 0, listDragged);
       return {
@@ -128,11 +160,12 @@ export const AppProvider = ({ children }) => {
       value={{
         todos, users,
         // actions
+        setTodos,
         onDragList,
         onDragCardSameList,
         onDragCardDiffereceList,
         handleDeleteList,
-        deleteCard,
+        handleDeleteCard,
         handleAddList,
         isLogin,
         registerUser,

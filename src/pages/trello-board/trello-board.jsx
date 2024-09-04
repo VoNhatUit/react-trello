@@ -48,7 +48,7 @@ function Dashboard() {
           <div className="header__logo" />
           <div className="header__right">
             <div className="header__avatar">
-              <img src="src/assets/images/avatar.png" alt="Avatar" />
+              <img src="/avatar.png" alt="Avatar" />
             </div>
           </div>
         </div>
